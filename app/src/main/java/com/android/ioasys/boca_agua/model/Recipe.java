@@ -13,26 +13,46 @@ public class Recipe {
     private Integer id;
     @ColumnInfo(name = "name")
     private String name;
-    @Relation(parentColumn = "id", entityColumn = "ingredient_id", entity = Ingredient.class)
+    @Ignore
     private List<Ingredient> ingredients = null;
-    @Relation(parentColumn = "id", entityColumn = "step_id", entity = Step.class)
+    @Ignore
     private List<Step> steps = null;
     @ColumnInfo(name = "servings")
     private Integer servings;
     @ColumnInfo(name = "image")
     private String image;
+    @ColumnInfo(name = "ingredient_id")
+    private String ingredientId;
+    @ColumnInfo(name = "step_id")
+    private String stepId;
 
     @Ignore
     public Recipe(){
     }
 
-    public Recipe(Integer id, String name, List<Ingredient> ingredients, List<Step> steps, Integer servings, String image) {
+    public Recipe(Integer id, String name, Integer servings, String image, String ingredientId, String stepId) {
         this.id = id;
         this.name = name;
-        this.ingredients = ingredients;
-        this.steps = steps;
         this.servings = servings;
         this.image = image;
+        this.ingredientId = ingredientId;
+        this.stepId = stepId;
+    }
+
+    public String getIngredientId() {
+        return ingredientId;
+    }
+
+    public void setIngredientId(String ingredientId) {
+        this.ingredientId = ingredientId;
+    }
+
+    public String getStepId() {
+        return stepId;
+    }
+
+    public void setStepId(String stepId) {
+        this.stepId = stepId;
     }
 
     public Integer getId() {
@@ -81,6 +101,20 @@ public class Recipe {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ingredients=" + ingredients +
+                ", steps=" + steps +
+                ", servings=" + servings +
+                ", image='" + image + '\'' +
+                ", ingredientId='" + ingredientId + '\'' +
+                ", stepId='" + stepId + '\'' +
+                '}';
     }
 }
 

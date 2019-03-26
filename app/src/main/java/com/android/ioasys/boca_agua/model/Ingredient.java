@@ -1,47 +1,41 @@
 package com.android.ioasys.boca_agua.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.*;
+import android.support.annotation.NonNull;
 
-@Entity(tableName = "ingredient_table")
+@Entity(tableName = "ingredient_table",foreignKeys = @ForeignKey(entity = Recipe.class,
+        parentColumns = "id",
+        childColumns = "recipe_id",
+        onDelete = ForeignKey.CASCADE))
 public class Ingredient {
 
-    @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @ColumnInfo(name = "ingredient")
+    @PrimaryKey
+    @NonNull
+    private String ingredient;
     @ColumnInfo(name = "quantity")
-    private Integer quantity;
+    private float quantity;
     @ColumnInfo(name = "measure")
     private String measure;
-    @ColumnInfo(name = "ingredient")
-    private String ingredient;
+    @ColumnInfo(name = "recipe_id")
+    private int recipeId;
 
     @Ignore
     public Ingredient() {
     }
 
-    public Ingredient(int id, Integer quantity, String measure, String ingredient) {
-        this.id = id;
+    public Ingredient(float quantity, String measure,@NonNull String ingredient, int recipeId) {
         this.quantity = quantity;
         this.measure = measure;
         this.ingredient = ingredient;
+        this.recipeId = recipeId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Integer getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 
@@ -59,5 +53,23 @@ public class Ingredient {
 
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "quantity=" + quantity +
+                ", measure='" + measure + '\'' +
+                ", ingredient='" + ingredient + '\'' +
+                ", recipeId=" + recipeId +
+                '}';
     }
 }
