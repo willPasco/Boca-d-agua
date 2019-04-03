@@ -40,13 +40,21 @@ class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.B
     class BaseViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewRecipeTitle;
+        private View itemView;
 
         BaseViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.itemView = itemView;
             this.textViewRecipeTitle = itemView.findViewById(R.id.text_view_recipe_title);
         }
 
-        void onBind(Recipe model) {
+        void onBind(final Recipe model) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RecipeDetailsActivity_.intent(itemView.getContext()).recipeId(model.getId()).start();
+                }
+            });
             textViewRecipeTitle.setText(model.getName());
         }
     }

@@ -32,7 +32,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
         RecipeViewModel viewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
 
-        viewModel.getRecipeLiveData().observe(this, new Observer<List<Recipe>>() {
+        viewModel.getAllRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
             public void onChanged(@Nullable List<Recipe> recipes) {
                 adapter.insertAll(recipes);
