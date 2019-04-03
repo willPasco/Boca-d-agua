@@ -50,6 +50,12 @@ class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.Bas
 
         void onBind(final Step model) {
             textViewStepTitle.setText(model.getShortDescription());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    StepActivity_.intent(itemView.getContext()).url(model.getVideoURL()).start();
+                }
+            });
         }
     }
 }
