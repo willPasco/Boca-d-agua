@@ -44,14 +44,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     @AfterViews
     void afterViews(){
         RecipeViewModel viewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
-        CustomLinearLayoutManager linearLayoutManager = new CustomLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         final IngredientsRecyclerAdapter adapterIngredient = new IngredientsRecyclerAdapter();
         recyclerViewIngredients.setLayoutManager(linearLayoutManager);
         recyclerViewIngredients.setAdapter(adapterIngredient);
 
-        linearLayoutManager = new CustomLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
         final StepsRecyclerAdapter adapterStep = new StepsRecyclerAdapter();
         recyclerViewSteps.setLayoutManager(linearLayoutManager);
         recyclerViewSteps.setAdapter(adapterStep);
@@ -72,18 +72,5 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-
-    private class CustomLinearLayoutManager extends LinearLayoutManager{
-
-        public CustomLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
-            super(context, orientation, reverseLayout);
-        }
-
-        @Override
-        public boolean canScrollVertically() {
-            return false;
-        }
     }
 }
