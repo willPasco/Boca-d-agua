@@ -36,34 +36,27 @@ public class InitialRequestRepository {
         final BocaAguaService service = ServiceGenerator.createService(BocaAguaService.class);
 
         Call<List<Recipe>> call = service.getRecipes();
-        Log.i(TAG, "called");
 
         call.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
 
-                Log.i(TAG, response.code() + "");
 
                 if (response.code() == REQUEST_OK) {
 
                     if (response.body() != null) {
                         List<Recipe> recipeList = response.body();
 
-                        Log.i(TAG, recipeList.toString());
-
                         for (Recipe recipe : recipeList) {
 
-                            Log.i(TAG, recipe.toString());
                             new RecipeInsertAsyncTask().execute(recipe);
 
                             for (Step step : recipe.getSteps()) {
                                 step.setRecipeId(recipe.getId());
-                                Log.i(TAG, step.toString());
                                 new StepAsyncTask().execute(step);
                             }
                             for (Ingredient ingredient : recipe.getIngredients()) {
                                 ingredient.setRecipeId(recipe.getId());
-                                Log.i(TAG, ingredient.toString());
                                 new IngredientAsyncTask().execute(ingredient);
                             }
 
