@@ -7,6 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import com.android.ioasys.boca_agua.model.Ingredient;
 import com.android.ioasys.boca_agua.model.Recipe;
+import com.android.ioasys.boca_agua.model.RecipeWithElements;
 import com.android.ioasys.boca_agua.model.Step;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface BocaAguaDao {
 
     @Query("SELECT * FROM recipe_table ORDER by id ASC")
     LiveData<List<Recipe>> getAllRecipes();
+
+    @Query("SELECT * FROM recipe_table WHERE id == :id ORDER BY id ASC")
+    LiveData<RecipeWithElements> getRecipeWithElements(int id);
 }
