@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">boca_agua</string>
+    <string name="app_logo_content_description">Logo do aplicativo</string>
 </resources>
