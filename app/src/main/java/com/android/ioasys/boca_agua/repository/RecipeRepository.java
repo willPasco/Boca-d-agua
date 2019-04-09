@@ -5,21 +5,24 @@ import android.arch.lifecycle.LiveData;
 import com.android.ioasys.boca_agua.dao.BocaAguaDao;
 import com.android.ioasys.boca_agua.dao.BocaAguaDatabase;
 import com.android.ioasys.boca_agua.model.Recipe;
+import com.android.ioasys.boca_agua.model.RecipeWithElements;
 
 import java.util.List;
 
 public class RecipeRepository {
 
     private final BocaAguaDao dao;
-    private LiveData<List<Recipe>> recipeListLiveData;
 
     public RecipeRepository(Application application) {
         BocaAguaDatabase db = BocaAguaDatabase.getDatabase(application);
         this.dao = db.getBocaAguaDao();
-        this.recipeListLiveData = dao.getAllRecipes();
     }
 
     public LiveData<List<Recipe>> getAllRecipes() {
-        return recipeListLiveData;
+        return dao.getAllRecipes();
+    }
+
+    public LiveData<RecipeWithElements> getRecipeWithElements(int id) {
+        return dao.getRecipeWithElements(id);
     }
 }

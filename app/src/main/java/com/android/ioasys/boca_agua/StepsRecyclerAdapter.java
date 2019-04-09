@@ -7,55 +7,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.ioasys.boca_agua.model.Recipe;
+import com.android.ioasys.boca_agua.model.Step;
 
 import java.util.List;
 
-class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.BaseViewHolder> {
+class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.BaseViewHolder> {
 
-    private List<Recipe> recipeList;
+    private List<Step> stepList;
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.step_item, viewGroup, false);
         return new BaseViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder baseViewHolder, int position) {
-        baseViewHolder.onBind(recipeList.get(position));
+        baseViewHolder.onBind(stepList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return recipeList == null ? 0 : recipeList.size();
+        return stepList == null ? 0 : stepList.size();
     }
 
-    public void insertAll(List<Recipe> recipeList){
-        this.recipeList = recipeList;
+    public void insertAll(List<Step> stepList){
+        this.stepList = stepList;
         notifyDataSetChanged();
     }
 
     class BaseViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewRecipeTitle;
+        private TextView textViewStepTitle;
         private View itemView;
 
         BaseViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
-            this.textViewRecipeTitle = itemView.findViewById(R.id.text_view_recipe_title);
+            this.textViewStepTitle = itemView.findViewById(R.id.text_view_step_title);
         }
 
-        void onBind(final Recipe model) {
+        void onBind(final Step model) {
+            textViewStepTitle.setText(model.getShortDescription());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    RecipeDetailsActivity_.intent(itemView.getContext()).recipeId(model.getId()).start();
+                    StepActivity_.intent(itemView.getContext()).url(model.getVideoURL()).start();
                 }
             });
-            textViewRecipeTitle.setText(model.getName());
         }
     }
 }
