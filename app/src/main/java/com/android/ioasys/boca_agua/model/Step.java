@@ -2,11 +2,13 @@ package com.android.ioasys.boca_agua.model;
 
 import android.arch.persistence.room.*;
 
+import java.io.Serializable;
+
 @Entity(tableName = "step_table", foreignKeys = @ForeignKey(entity = Recipe.class,
         parentColumns = "id",
         childColumns = "recipe_id",
         onDelete = ForeignKey.CASCADE))
-public class Step {
+public class Step implements Serializable {
 
     @ColumnInfo(name = "id")
     @PrimaryKey

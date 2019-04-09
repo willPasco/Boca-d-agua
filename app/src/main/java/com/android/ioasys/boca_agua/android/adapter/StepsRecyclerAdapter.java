@@ -11,11 +11,17 @@ import com.android.ioasys.boca_agua.R;
 import com.android.ioasys.boca_agua.android.StepActivity_;
 import com.android.ioasys.boca_agua.model.Step;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.BaseViewHolder> {
 
     private List<Step> stepList;
+    private int recipeId;
+
+    public StepsRecyclerAdapter(int recipeId) {
+        this.recipeId = recipeId;
+    }
 
     @NonNull
     @Override
@@ -34,7 +40,7 @@ public class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdap
         return stepList == null ? 0 : stepList.size();
     }
 
-    public void insertAll(List<Step> stepList){
+    public void insertAll(List<Step> stepList) {
         this.stepList = stepList;
         notifyDataSetChanged();
     }
@@ -56,7 +62,7 @@ public class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    StepActivity_.intent(itemView.getContext()).url(model.getVideoURL()).start();
+                    StepActivity_.intent(itemView.getContext()).stepList(new ArrayList<>(stepList)).start();
                 }
             });
 

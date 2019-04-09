@@ -49,7 +49,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        final StepsRecyclerAdapter adapterStep = new StepsRecyclerAdapter();
+        final StepsRecyclerAdapter adapterStep = new StepsRecyclerAdapter(recipeId);
         recyclerViewSteps.setLayoutManager(linearLayoutManager);
         recyclerViewSteps.setAdapter(adapterStep);
 
