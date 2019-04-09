@@ -2,4 +2,6 @@
     <string name="app_name">boca_agua</string>
     <string name="app_logo_content_description">Logo do aplicativo</string>
     <string name="recipe_list">Lista de Receitas</string>
+    <string name="ingredients_header">Ingredients</string>
+    <string name="steps_header">Steps</string>
 </resources>

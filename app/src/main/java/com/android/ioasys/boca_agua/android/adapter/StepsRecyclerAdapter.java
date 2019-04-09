@@ -41,13 +41,14 @@ public class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdap
 
     class BaseViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewStepTitle;
+        private TextView textViewStepTitle, textViewStepSummary;
         private View itemView;
 
         BaseViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
             this.textViewStepTitle = itemView.findViewById(R.id.text_view_step_title);
+            this.textViewStepSummary = itemView.findViewById(R.id.text_view_step_summary);
         }
 
         void onBind(final Step model) {
@@ -58,6 +59,8 @@ public class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdap
                     StepActivity_.intent(itemView.getContext()).url(model.getVideoURL()).start();
                 }
             });
+
+            textViewStepSummary.setText(model.getDescription());
         }
     }
 }
