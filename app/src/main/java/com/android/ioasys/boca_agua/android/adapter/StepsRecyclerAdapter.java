@@ -1,4 +1,4 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.ioasys.boca_agua.R;
+import com.android.ioasys.boca_agua.android.StepActivity_;
 import com.android.ioasys.boca_agua.model.Step;
 
 import java.util.List;
 
-class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.BaseViewHolder> {
+public class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.BaseViewHolder> {
 
     private List<Step> stepList;
 

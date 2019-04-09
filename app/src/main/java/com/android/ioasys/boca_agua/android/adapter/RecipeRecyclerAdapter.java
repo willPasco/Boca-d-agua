@@ -1,4 +1,4 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.ioasys.boca_agua.R;
+import com.android.ioasys.boca_agua.android.RecipeDetailsActivity_;
 import com.android.ioasys.boca_agua.model.Recipe;
 
 import java.util.List;
 
-class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.BaseViewHolder> {
+public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.BaseViewHolder> {
 
     private List<Recipe> recipeList;
 
