@@ -1,5 +1,6 @@
 package com.android.ioasys.boca_agua.android.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,11 +21,19 @@ public class StepAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return StepFragment_.builder().url(stepList.get(position).getVideoURL()).build();
+        Step model = stepList.get(position);
+
+        return StepFragment_.builder().step(model).build();
     }
 
     @Override
     public int getCount() {
         return stepList == null ? 0 : stepList.size();
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return "Step " + position;
     }
 }
