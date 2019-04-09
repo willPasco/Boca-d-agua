@@ -1,4 +1,4 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.android.ioasys.boca_agua.R;
+import com.android.ioasys.boca_agua.android.adapter.RecipeRecyclerAdapter;
 import com.android.ioasys.boca_agua.model.Recipe;
 import com.android.ioasys.boca_agua.viewmodel.RecipeViewModel;
 

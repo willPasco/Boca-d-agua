@@ -1,10 +1,11 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android;
 
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.ioasys.boca_agua.R;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;

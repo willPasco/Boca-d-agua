@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".AppApplication"
+        android:name=".android.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".StepActivity_"/>
-        <activity android:name=".RecipeDetailsActivity_" />
-        <activity android:name=".RecipeListActivity_" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".android.StepActivity_"/>
+        <activity android:name=".android.RecipeDetailsActivity_" />
+        <activity android:name=".android.RecipeListActivity_" />
+        <activity android:name=".android.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

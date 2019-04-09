@@ -1,4 +1,4 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android;
 
 import android.app.Application;
 
