@@ -1,5 +1,6 @@
 package com.android.ioasys.boca_agua.android;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -22,12 +23,16 @@ public class StepActivity extends AppCompatActivity {
     @ViewById(R.id.view_pager)
     ViewPager viewPager;
 
+    @ViewById(R.id.tab_view)
+    TabLayout tabLayout;
+
     @Extra
     ArrayList<Step> stepList;
 
     @AfterViews
     void afterViews() {
         viewPager.setAdapter(new StepAdapter(getSupportFragmentManager(), stepList));
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 }

@@ -4,8 +4,10 @@ package com.android.ioasys.boca_agua.android.fragment;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.ioasys.boca_agua.R;
+import com.android.ioasys.boca_agua.model.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -29,8 +31,14 @@ public class StepFragment extends Fragment {
     @ViewById(R.id.player_view)
     PlayerView playerView;
 
+    @ViewById(R.id.text_view_step_title)
+    TextView textViewStepTitle;
+
+    @ViewById(R.id.text_view_step_summary)
+    TextView textViewStepSummary;
+
     @FragmentArg
-    String url;
+    Step step;
 
     private long playBackPosition;
     private int currentWindow;
@@ -39,7 +47,8 @@ public class StepFragment extends Fragment {
 
     @AfterViews
     void afterViews() {
-
+        textViewStepSummary.setText(step.getDescription());
+        textViewStepTitle.setText(step.getShortDescription());
     }
 
     private void initPlayer() {
@@ -52,7 +61,7 @@ public class StepFragment extends Fragment {
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playBackPosition);
 
-        Uri uri = Uri.parse(url);
+        Uri uri = Uri.parse(step.getVideoURL());
         MediaSource mediaSource = new ExtractorMediaSource.Factory(new DefaultHttpDataSourceFactory("exoplayer-vm")).createMediaSource(uri);
         player.prepare(mediaSource, true, false);
 
