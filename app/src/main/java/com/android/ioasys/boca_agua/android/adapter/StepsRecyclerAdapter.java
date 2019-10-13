@@ -1,4 +1,4 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,13 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.ioasys.boca_agua.R;
+import com.android.ioasys.boca_agua.android.StepActivity_;
 import com.android.ioasys.boca_agua.model.Step;
 
+import java.util.ArrayList;
 import java.util.List;
 
-class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.BaseViewHolder> {
+public class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.BaseViewHolder> {
 
     private List<Step> stepList;
+    private int recipeId;
+
+    public StepsRecyclerAdapter(int recipeId) {
+        this.recipeId = recipeId;
+    }
 
     @NonNull
     @Override
@@ -32,20 +40,21 @@ class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.Bas
         return stepList == null ? 0 : stepList.size();
     }
 
-    public void insertAll(List<Step> stepList){
+    public void insertAll(List<Step> stepList) {
         this.stepList = stepList;
         notifyDataSetChanged();
     }
 
     class BaseViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewStepTitle;
+        private TextView textViewStepTitle, textViewStepSummary;
         private View itemView;
 
         BaseViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
             this.textViewStepTitle = itemView.findViewById(R.id.text_view_step_title);
+            this.textViewStepSummary = itemView.findViewById(R.id.text_view_step_summary);
         }
 
         void onBind(final Step model) {
@@ -53,9 +62,11 @@ class StepsRecyclerAdapter extends RecyclerView.Adapter<StepsRecyclerAdapter.Bas
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    StepActivity_.intent(itemView.getContext()).url(model.getVideoURL()).start();
+                    StepActivity_.intent(itemView.getContext()).stepList(new ArrayList<>(stepList)).start();
                 }
             });
+
+            textViewStepSummary.setText(model.getDescription());
         }
     }
 }

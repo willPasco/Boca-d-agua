@@ -1,15 +1,22 @@
 package com.android.ioasys.boca_agua.model;
 
-import android.arch.persistence.room.*;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
 
 @Entity(tableName = "step_table", foreignKeys = @ForeignKey(entity = Recipe.class,
         parentColumns = "id",
         childColumns = "recipe_id",
-        onDelete = ForeignKey.CASCADE))
-public class Step {
+        onDelete = ForeignKey.CASCADE),
+        primaryKeys = {"id", "recipe_id"})
+public class Step implements Serializable {
 
     @ColumnInfo(name = "id")
-    @PrimaryKey
+    @NonNull
     private Integer id;
     @ColumnInfo(name = "short_description")
     private String shortDescription;
@@ -20,6 +27,7 @@ public class Step {
     @ColumnInfo(name = "thumbnail_url")
     private String thumbnailURL;
     @ColumnInfo(name = "recipe_id")
+    @NonNull
     private int recipeId;
 
 

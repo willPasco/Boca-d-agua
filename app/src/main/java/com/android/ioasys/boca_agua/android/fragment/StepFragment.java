@@ -1,10 +1,13 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android.fragment;
+
 
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import com.android.ioasys.boca_agua.R;
+import com.android.ioasys.boca_agua.model.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -16,32 +19,41 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_step_activity)
-public class StepActivity extends AppCompatActivity {
+@EFragment(R.layout.fragment_step)
+public class StepFragment extends Fragment {
 
     private SimpleExoPlayer player;
 
     @ViewById(R.id.player_view)
     PlayerView playerView;
 
-    @Extra
-    String url;
+    @ViewById(R.id.text_view_step_title)
+    TextView textViewStepTitle;
+
+    @ViewById(R.id.text_view_step_summary)
+    TextView textViewStepSummary;
+
+    @FragmentArg
+    Step step;
+
     private long playBackPosition;
     private int currentWindow;
     private boolean playWhenReady;
 
+
     @AfterViews
     void afterViews() {
-        Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
+        textViewStepSummary.setText(step.getDescription());
+        textViewStepTitle.setText(step.getShortDescription());
     }
 
-    private void initPlayer(){
+    private void initPlayer() {
         player = ExoPlayerFactory.newSimpleInstance(
-                new DefaultRenderersFactory(this),
+                new DefaultRenderersFactory(getContext()),
                 new DefaultTrackSelector(),
                 new DefaultLoadControl());
 
@@ -49,14 +61,13 @@ public class StepActivity extends AppCompatActivity {
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playBackPosition);
 
-        Uri uri = Uri.parse(url);
+        Uri uri = Uri.parse(step.getVideoURL());
         MediaSource mediaSource = new ExtractorMediaSource.Factory(new DefaultHttpDataSourceFactory("exoplayer-vm")).createMediaSource(uri);
         player.prepare(mediaSource, true, false);
 
     }
 
-
-    private void hideSystemUir(){
+    private void hideSystemUir() {
         playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -64,7 +75,7 @@ public class StepActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 
-     private void releasePlayer() {
+    private void releasePlayer() {
         if (player != null) {
             playBackPosition = player.getCurrentPosition();
             currentWindow = player.getCurrentWindowIndex();
@@ -75,13 +86,13 @@ public class StepActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         initPlayer();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         if (player == null) {
             initPlayer();
@@ -89,14 +100,15 @@ public class StepActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         releasePlayer();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         releasePlayer();
     }
+
 }

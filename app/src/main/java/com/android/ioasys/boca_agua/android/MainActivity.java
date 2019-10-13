@@ -1,4 +1,4 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import com.android.ioasys.boca_agua.R;
 import com.android.ioasys.boca_agua.viewmodel.InitialRequestViewModel;
 
 public class MainActivity extends AppCompatActivity {

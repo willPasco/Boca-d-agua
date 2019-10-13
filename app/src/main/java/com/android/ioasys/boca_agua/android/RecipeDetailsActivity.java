@@ -1,19 +1,19 @@
-package com.android.ioasys.boca_agua;
+package com.android.ioasys.boca_agua.android;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.ioasys.boca_agua.R;
+import com.android.ioasys.boca_agua.android.adapter.IngredientsRecyclerAdapter;
+import com.android.ioasys.boca_agua.android.adapter.StepsRecyclerAdapter;
 import com.android.ioasys.boca_agua.model.Recipe;
 import com.android.ioasys.boca_agua.model.RecipeWithElements;
 import com.android.ioasys.boca_agua.viewmodel.RecipeViewModel;
-import com.bumptech.glide.Glide;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -22,9 +22,6 @@ import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_recipe_details)
 public class RecipeDetailsActivity extends AppCompatActivity {
-
-    @ViewById(R.id.image_view_recipe_image)
-    ImageView recipeImage;
 
     @ViewById(R.id.text_view_recipe_name)
     TextView recipeName;
@@ -42,7 +39,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     int recipeId;
 
     @AfterViews
-    void afterViews(){
+    void afterViews() {
         RecipeViewModel viewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
@@ -52,7 +49,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        final StepsRecyclerAdapter adapterStep = new StepsRecyclerAdapter();
+        final StepsRecyclerAdapter adapterStep = new StepsRecyclerAdapter(recipeId);
         recyclerViewSteps.setLayoutManager(linearLayoutManager);
         recyclerViewSteps.setAdapter(adapterStep);
 
@@ -61,10 +58,16 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             public void onChanged(@Nullable RecipeWithElements recipeWithElements) {
                 Recipe recipe = recipeWithElements.getRecipe();
 
-                Glide.with(RecipeDetailsActivity.this).load(recipe.getImage()).placeholder(R.drawable.ic_launcher_background).into(recipeImage);
-
                 recipeName.setText(recipe.getName());
-                recipeServings.setText(recipe.getServings()+"");
+                String servings = "Serve - " + recipe.getServings();
+
+                if (recipe.getServings() > 1) {
+                    servings += " people";
+                } else {
+                    servings += " person";
+                }
+
+                recipeServings.setText(servings);
 
                 adapterIngredient.insertAll(recipeWithElements.getIngredientList());
                 adapterStep.insertAll(recipeWithElements.getStepsList());
